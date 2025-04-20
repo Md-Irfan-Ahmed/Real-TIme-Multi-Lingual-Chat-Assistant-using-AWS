@@ -1,6 +1,6 @@
 # Real-TIme-Multi-Lingual-Chat-Assistant-using-AWS
 A scalable, serverless, real-time chat assistant capable of handling multi-lingual conversations using a suite of AWS services. This project demonstrates a cloud-native architecture built for efficient communication, real-time language translation, and seamless deployment.
- Features
+Features
 🌐 Real-Time Chat Support: Enables users to send and receive messages in real time.
 
 🌍 Multi-Lingual Translation: Automatically translates messages between multiple languages using Amazon Translate, allowing users to communicate regardless of language barriers.
