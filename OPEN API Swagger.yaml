@@ -1,0 +1,244 @@
+openapi: "3.0.1"
+info:
+  title: "Real Time Multi-Lingual Chat Assistant using AWS"
+  description: "API to manage messages stored in DynamoDB for project."
+  version: "1.0.0"
+servers:
+- url: "https://{aws_web_url}/{basePath}"
+  variables:
+    basePath:
+      default: "pro"
+paths:
+  /messages:
+    get:
+      operationId: "getMessage"
+      parameters:
+      - name: "id"
+        in: "query"
+        required: true
+        schema:
+          type: "string"
+      responses:
+        "404":
+          description: "404 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL0d904c"
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODELa57adf"
+        "400":
+          description: "400 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL89f6dd"
+        "500":
+          description: "500 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL3d8fdb"
+      security:
+      - api_key: []
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "{api_gateway_url}"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+    put:
+      operationId: "updateMessage"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MODELc44abc"
+        required: true
+      responses:
+        "400":
+          description: "400 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL84ee14"
+        "500":
+          description: "500 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL2b77d4"
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL73b5ab"
+      security:
+      - api_key: []
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "{api_gateway_url}"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+    post:
+      operationId: "createMessage"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MODEL053f47"
+        required: true
+      responses:
+        "400":
+          description: "400 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODELf45874"
+        "500":
+          description: "500 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODELf7511e"
+        "200":
+          description: "200 response"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MODEL8c5ae7"
+      security:
+      - api_key: []
+      x-amazon-apigateway-integration:
+        httpMethod: "POST"
+        uri: "{api_gateway_url}"
+        responses:
+          default:
+            statusCode: "200"
+        passthroughBehavior: "when_no_match"
+        timeoutInMillis: 29000
+        contentHandling: "CONVERT_TO_TEXT"
+        type: "aws"
+components:
+  schemas:
+    MODELf7511e:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        error:
+          type: "string"
+    MODEL0d904c:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+    MODEL2b77d4:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        error:
+          type: "string"
+    MODEL8c5ae7:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        messageId:
+          type: "string"
+    MODEL89f6dd:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+    MODELf45874:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+    MODEL3d8fdb:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+        error:
+          type: "string"
+    MODELc44abc:
+      required:
+      - "id"
+      - "language"
+      - "msg"
+      - "status"
+      type: "object"
+      properties:
+        id:
+          type: "string"
+          description: "The ID of the message to update"
+        msg:
+          type: "string"
+          description: "Updated message content"
+        language:
+          type: "string"
+          description: "Updated language"
+        status:
+          type: "string"
+          description: "Updated status (open/closed)"
+    MODEL73b5ab:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+    MODEL053f47:
+      required:
+      - "language"
+      - "msg"
+      - "status"
+      type: "object"
+      properties:
+        msg:
+          type: "string"
+          description: "The message content"
+        language:
+          type: "string"
+          description: "Language of the message"
+        status:
+          type: "string"
+          description: "Status of the message (open/closed)"
+    MODELa57adf:
+      type: "object"
+      properties:
+        id:
+          type: "string"
+        msg:
+          type: "string"
+        language:
+          type: "string"
+        status:
+          type: "string"
+        timestamp:
+          type: "string"
+    MODEL84ee14:
+      type: "object"
+      properties:
+        message:
+          type: "string"
+  securitySchemes:
+    api_key:
+      type: "apiKey"
+      name: "x-api-key"
+      in: "header"
